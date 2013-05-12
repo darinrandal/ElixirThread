@@ -7,7 +7,8 @@ group :development do
 	gem 'sqlite3'
 end
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.3.1.0'
+
 gem 'devise', :github => "plataformatec/devise", :branch => :rails4
 gem 'paperclip'
 
