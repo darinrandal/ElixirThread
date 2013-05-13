@@ -5,7 +5,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    #@posts = Post.all
+    @posts = Post.where(:visible => true).order('created_at DESC').page(params[:page])
   end
 
   # GET /posts/1
@@ -15,7 +16,8 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    #@post = Post.new
+    @post = current_user.posts.build
   end
 
   # GET /posts/1/edit
@@ -25,17 +27,26 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    #@post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @post }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    current_user.update_attributes(:post_count => current_user.post_count + 1)
+
+    if @post.save
+      redirect_to @post, notice: 'Post was successfully created.'
+    else
+      render action: 'new'
     end
+
+    #respond_to do |format|
+    #  if @post.save
+    #    format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #    format.json { render action: 'show', status: :created, location: @post }
+    #  else
+    #    format.html { render action: 'new' }
+    #    format.json { render json: @post.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PATCH/PUT /posts/1
@@ -70,6 +81,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params[:post]
+      params[:post].permit(:content)
     end
 end
