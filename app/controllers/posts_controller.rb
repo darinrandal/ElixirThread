@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    unauthorized unless current_user?(@post.user)
   end
 
   def create
@@ -66,5 +67,13 @@ class PostsController < ApplicationController
 
     def post_params
       params[:post].permit(:content)
+    end
+
+    def current_user?(user)
+      user == current_user
+    end
+
+    def unauthorized
+      redirect_to root_path
     end
 end

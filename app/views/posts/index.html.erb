@@ -27,7 +27,7 @@
     </td>
   </tr>
   <tr>
-    <td class="avatar" valign="top">
+    <td class="avatar">
       <div id="username<%= post.id %>"><a href="#"><%= post.user.username %></a></div>
       <div class="centered" id="bits<%= post.id %>">
         <%= image_tag post.user.avatar.url, :class => "post_avatar" %><br/>
@@ -35,28 +35,27 @@
         <%= post.user.post_count %> Posts
       </div>
     </td>
-    <td class="body" valign="top">
+    <td class="body">
       <div id="content<%= post.id %>">
          <%= simple_format(post.content) %>
       </div>
     </td>
   </tr>
   <tr>
-    <td style="padding:5px;width:110px !important;" valign="top">
-      <% if post.country_code != "xx" %>
-        <img src="<%= root_path %>assets/flags/<%= post.country_code.downcase %>.png" alt="<%= post.country_code %>" title="<%= post.country_code %>" />
-      <% end %>
-      <img src="<%= root_path %>assets/os/<%= post.os.delete(' ').downcase %>.png" alt="<%= post.os %>" title="<%= post.os %>" />
+    <td class="postdata">
+      <%= format_os(post.os) %>
+      <%= format_browser(post.browser) %>
+      <%= format_country(post.country_code) %>
       <img src="<%= root_path %>assets/events.png" alt="Events" />
       <img src="<%= root_path %>assets/report.png" alt="Report" />
     </td>
-    <td valign="top">
+    <td>
       <div style="float: left;">
         ratings
       </div>
       <div id="options<%= post.id %>" style="float: right;">
-        <%= link_to 'Edit', edit_post_path(post), :class => "brackets" %>
-        <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => "brackets" %>
+        <%= format_post_edit(post) %>
+        <%= format_post_delete(post) %>
         <a href="javascript:void(0);" class="brackets">Quote</a>
       </div>
     </td>
