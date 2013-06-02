@@ -2,7 +2,6 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :build_post, only: [:index, :new]
-  before_action :update_data, only: [:create, :update]
 
   def index
     @posts = Post.where(:visible => true).page(params[:page])
@@ -20,6 +19,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
+    update_data()
+
     if @post.save
       current_user.update_attributes(:post_count => current_user.post_count + 1)
       redirect_to @post, notice: 'Post was successfully created.'
@@ -29,6 +30,8 @@ class PostsController < ApplicationController
   end
 
   def update
+    update_data()
+
     if @post.update(post_params)
       redirect_to @post, notice: 'Post was successfully updated.'
     else
