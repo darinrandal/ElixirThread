@@ -44,9 +44,9 @@
   <tr>
     <td style="padding:5px;width:110px !important;" valign="top">
       <% if post.country_code != "xx" %>
-        <img src="<%= root_path %>assets/flags/<%= post.country_code.downcase %>.png" alt="<%= post.country_code %>" />
+        <img src="<%= root_path %>assets/flags/<%= post.country_code.downcase %>.png" alt="<%= post.country_code %>" title="<%= post.country_code %>" />
       <% end %>
-      <img src="<%= root_path %>assets/os/<%= post.os.delete(' ').downcase %>.png" alt="<%= post.os %>" />
+      <img src="<%= root_path %>assets/os/<%= post.os.delete(' ').downcase %>.png" alt="<%= post.os %>" title="<%= post.os %>" />
       <img src="<%= root_path %>assets/events.png" alt="Events" />
       <img src="<%= root_path %>assets/report.png" alt="Report" />
     </td>

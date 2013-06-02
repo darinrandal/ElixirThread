@@ -20,6 +20,7 @@
         <li>Smartness: <span class="stat"><span class="r50" title="129">129</span></span></li>
       </ul>
       <ul id="userinfo_minor">
+        <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
         <li><a href="/">Ticker</a></li>
         <li><a href="/">Invite</a></li>
       </ul>
@@ -35,6 +36,9 @@
       <% if !user_signed_in? %>
         <li><%= link_to "Login", new_user_session_path %></li>
         <li><%= link_to "Register", new_registration_path(resource_name) %></li>
+      <% else %>
+        <li><a href="/"><%= current_user.username %></a></li>
+        <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
       <% end %>
     </ul>
   </div>
