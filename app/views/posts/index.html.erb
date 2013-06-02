@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td class="avatar">
-      <div id="username<%= post.id %>"><a href="#"><%= post.user.username %></a></div>
+      <div id="username<%= post.id %>"><%= link_to post.user.username, post.user %></div>
       <div class="centered" id="bits<%= post.id %>">
         <%= image_tag post.user.avatar.url, :class => "post_avatar" %><br/>
         <%= post.user.created_at.to_s(:month_and_year) %><br/>
@@ -46,7 +46,7 @@
       <%= format_os(post.os) %>
       <%= format_browser(post.browser) %>
       <%= format_country(post.country_code) %>
-      <img src="<%= root_path %>assets/events.png" alt="Events" />
+      <%= image_tag "#{root_path}assets/events.png", :class => "load_events", :uid => post.user.id %>
       <img src="<%= root_path %>assets/report.png" alt="Report" />
     </td>
     <td>
@@ -90,17 +90,6 @@ No posts were found :(
   <h3>Post comment</h3>
   <div class="box pad">
     <%= form_for @post, :html => { :class =>"send_form center" } do |f| %>
-      <% if @post.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-          <ul>
-          <% @post.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
       <div id="quickreplytext">
         <div class="textarea_wrap">
           <%= f.text_area :content, :cols => "65", :rows => "8" %>

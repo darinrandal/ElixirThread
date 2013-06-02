@@ -12,12 +12,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :case_sensitive => false
   validates_presence_of :username
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["lower(username) = :value", { :value => login.downcase }]).first
-    else
-      where(conditions).first
-    end
+  def self.find_for_authentication(tainted_conditions)
+    find_first_by_auth_conditions(tainted_conditions)
   end
 end
