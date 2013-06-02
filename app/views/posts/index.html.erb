@@ -1,25 +1,118 @@
 <%= paginate @posts %>
+<!--
+<div class="linkbox">
+  <strong>1-10</strong> |
+  <a href="/"><strong>11-20</strong></a> |
+  <a href="/"><strong>21-30</strong></a> |
+  <a href="/"><strong>31-40</strong></a> |
+  <a href="/"><strong>41-50</strong></a> |
+  <a href="/"><strong>51-60</strong></a> |
+  <a href="/"><strong>61-70</strong></a> |
+  <a href="/"><strong>71-80</strong></a> |
+  <a href="/"><strong>81-90</strong></a> |
+  <a href="/" class="pager_next"><strong>Next &gt;</strong></a>
+  <a href="/"><strong> Last &gt;&gt;</strong></a>
+</div>
+-->
 
 <% @posts.each do |post| %>
-  <div class="navbar-inner" style="min-height:0;">
-    <h6 style="line-height:20px;margin:0;"><%= time_ago_in_words(post.updated_at) %></h6>
-  </div>
-<div class="row">
-  <div class="span2 panel">
-    <%= post.user.username %>
-    <%= image_tag post.user.avatar.url %>
-    Post count:
-    <%= post.user.post_count %>
-  </div>
-  <div class="span10 content">
-    <%= post.content %>
-    <%= link_to 'Show', post %>
-    <%= link_to 'Edit', edit_post_path(post) %>
-    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div>
-</div>
+  <table class="forum_post box vertical_margin" id="post<%= post.id %>">
+  <tbody>
+  <tr class="colhead_dark">
+    <td colspan="2">
+      <div style="float: left;">
+        <span class="time" title="<%= post.updated_at %>"><%= time_ago_in_words(post.updated_at) %> ago</span>
+      </div>
+      <div id="bar<%= post.id %>" style="float: right;">#<%= link_to post.id, post %></div>
+    </td>
+  </tr>
+  <tr>
+    <td class="avatar" valign="top">
+      <div id="username<%= post.id %>"><a href="#"><%= post.user.username %></a></div>
+      <div class="centered" id="bits<%= post.id %>">
+        <%= image_tag post.user.avatar.url, :class => "post_avatar" %><br/>
+        <%= post.user.created_at.to_s(:month_and_year) %><br/>
+        <%= post.user.post_count %> Posts
+      </div>
+    </td>
+    <td class="body" valign="top">
+      <div id="content<%= post.id %>">
+         <%= simple_format(post.content) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:5px;width:110px !important;" valign="top">
+      <% if post.country_code != "xx" %>
+        <img src="<%= root_path %>assets/flags/<%= post.country_code.downcase %>.png" alt="<%= post.country_code %>" />
+      <% end %>
+      <img src="<%= root_path %>assets/os/<%= post.os.delete(' ').downcase %>.png" alt="<%= post.os %>" />
+      <img src="<%= root_path %>assets/events.png" alt="Events" />
+      <img src="<%= root_path %>assets/report.png" alt="Report" />
+    </td>
+    <td valign="top">
+      <div style="float: left;">
+        ratings
+      </div>
+      <div id="options<%= post.id %>" style="float: right;">
+        <%= link_to 'Edit', edit_post_path(post), :class => "brackets" %>
+        <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => "brackets" %>
+        <a href="javascript:void(0);" class="brackets">Quote</a>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  </table>
 <% end %>
 
-<br />
+<% if @posts.count == 0 %>
+No posts were found :(
+<% end %>
 
-<%= link_to 'New Post', new_post_path, :class => "btn" %>
+<!--
+<div class="linkbox">
+  <strong>1-10</strong> |
+  <a href="/"><strong>11-20</strong></a> |
+  <a href="/"><strong>21-30</strong></a> |
+  <a href="/"><strong>31-40</strong></a> |
+  <a href="/"><strong>41-50</strong></a> |
+  <a href="/"><strong>51-60</strong></a> |
+  <a href="/"><strong>61-70</strong></a> |
+  <a href="/"><strong>71-80</strong></a> |
+  <a href="/"><strong>81-90</strong></a> |
+  <a href="/" class="pager_next"><strong>Next &gt;</strong></a>
+  <a href="/"><strong> Last &gt;&gt;</strong></a>
+</div>
+-->
+<% if user_signed_in? %>
+
+<br>
+<div id="reply_box">
+  <h3>Post comment</h3>
+  <div class="box pad">
+    <%= form_for @post, :html => { :class =>"send_form center" } do |f| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+          <ul>
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div id="quickreplytext">
+        <div class="textarea_wrap">
+          <%= f.text_area :content, :cols => "65", :rows => "8" %>
+        </div>
+        <br>
+      </div>
+      <div class="preview_submit">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% end %>

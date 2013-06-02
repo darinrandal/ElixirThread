@@ -2,7 +2,7 @@
 	<h2 class="form-signin-heading">Sign up</h2>
 	<%= devise_error_messages! %>
 	<%= f.text_field :username, :autofocus => true, :placeholder => "Username", :class => "input-block-level" %>
-	<%= f.email_field :email, :placeholder => "Email", :class => "input-block-level" %>
+	<%= f.text_field :email, :placeholder => "Email", :class => "input-block-level" %>
 	<%= f.password_field :password, :placeholder => "Password", :class => "input-block-level" %>
 	<%= f.password_field :password_confirmation, :placeholder => "Password Confirmation", :class => "input-block-level" %>
 	<button class="btn btn-large btn-primary" type="submit">Sign up</button>

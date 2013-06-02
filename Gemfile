@@ -7,8 +7,6 @@ group :development do
 	gem 'sqlite3'
 end
 
-gem 'bootstrap-sass', '~> 2.3.1.0'
-
 gem 'devise', :github => "plataformatec/devise", :branch => :rails4
 gem 'paperclip', :github => "thoughtbot/paperclip", :branch => "rails-4"
 
@@ -45,3 +43,6 @@ gem 'jbuilder', '~> 1.0.1'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'weary'
+gem 'useragent'

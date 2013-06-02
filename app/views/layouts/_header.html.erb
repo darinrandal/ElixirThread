@@ -1,45 +1,41 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "Elixir Thread", root_path, :class => "brand" %>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="active"><%= link_to "Home", root_path %></li>
-          <li><a href="#about">Events</a></li>
-          <li><a href="#contact">Ratings</a></li>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">Latest Post</a></li>
-          <% if !user_signed_in? %>
-            <li><%= link_to "Register", new_registration_path(resource_name) %></li>
-          <% end %>
-        </ul>
-        <% if user_signed_in? %>
-        <ul class="nav pull-right">
-          <li class=" dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Profile", edit_user_registration_path %></li>
-              <li><a href="#">Settings</a></li>
-              <li><a href="#">My Events</a></li>
-              <li class="divider"></li>
-              <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
-            </ul>
-          </li>
-        </ul>
-        <% else %>
-          <%= form_for(resource, :as => resource_name, :url => new_user_session_path, :html => { class: "navbar-form pull-right" }) do |f| %>
-            <%= f.text_field :username, :autofocus => true, :style => "width:110px;", :class => "span2", :placeholder => "Username" %>
-            <%= f.password_field :password, :style => "width:110px;", :placeholder => "Password" %>
-            <input name="user[remember_me]" type="hidden" value="1" />
-            <%= f.submit "Sign in", :class => "btn" %>
-          <% end %>
-        <% end %>
-      </div><!--/.nav-collapse -->
-    </div>
+<div id="header">
+  <div id="logo">
+    <%= link_to "Elixir Thread", root_path %>
   </div>
-</div> <!--/.navbar -->
+  <% if user_signed_in? %>
+    <div id="userinfo">
+      <ul id="userinfo_username">
+        <li><a href="/" class="username"><%= current_user.username %></a></li>
+        <li id="nav_useredit" class="brackets"><%= link_to "Edit", edit_user_registration_path %></li>
+        <li id="nav_logout" class="brackets"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+      </ul>
+      <ul id="userinfo_major">
+        <li><a href="/">Administration</a></li>
+        <li id="nav_store" class="brackets"><a href="/">Manage Users</a></li>
+        <li id="nav_invite" class="brackets"><a href="/">Manage Bans</a></li>
+        <li id="nav_donate" class="brackets"><a href="/">Settings</a></li>
+      </ul>
+      <ul id="userinfo_stats">
+        <li><a href="/">Posts:</a> <span class="stat" title="1,146">1,146</span></li>
+        <li>Smartness: <span class="stat"><span class="r50" title="129">129</span></span></li>
+      </ul>
+      <ul id="userinfo_minor">
+        <li><a href="/">Ticker</a></li>
+        <li><a href="/">Invite</a></li>
+      </ul>
+    </div>
+  <% end %>
+  <div id="menu">
+    <ul>
+      <li class="active"><%= link_to "Home", root_path %></li>
+      <li><a href="/">Search</a></li>
+      <li><a href="/">Events</a></li>
+      <li><a href="/">Latest</a></li>
+      <li><a href="/">All Users</a></li>
+      <% if !user_signed_in? %>
+        <li><%= link_to "Login", new_user_session_path %></li>
+        <li><%= link_to "Register", new_registration_path(resource_name) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

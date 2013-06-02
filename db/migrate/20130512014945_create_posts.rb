@@ -5,6 +5,11 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :visible, :default => true
 
+      #Post logging
+      t.string :os
+      t.string :browser
+      t.string :country_code
+
       t.timestamps
     end
   end

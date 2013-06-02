@@ -16,7 +16,10 @@ ActiveRecord::Schema.define(version: 20130512224415) do
   create_table "posts", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.boolean  "visible",    default: true
+    t.boolean  "visible",      default: true
+    t.string   "os"
+    t.string   "browser"
+    t.string   "country_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
