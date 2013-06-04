@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     @event.save
   end
 
+  def unauthorized
+    redirect_to root_path, notice: 'You are not authorized to access that content!'
+  end
+
   protected
 
   def configure_permitted_parameters

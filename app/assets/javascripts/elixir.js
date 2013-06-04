@@ -1,20 +1,29 @@
-function docReady()
+// Turbolinks pageload and jQuery(document).ready() are binded to this, use it!
+function documentReady()
 {
 	$('.load_events').click(function() {
-		var t = $(this);
-		var uid = t.attr('uid');
+		var uid = $(this).attr('uid');
+
+		var e = $(this).parent().parent().parent().parent().next('div')
+		if(e.html() != '') {
+			e.slideToggle('fast');
+			return;
+		}
 
 		$.ajax({
 			url: '/events/ajax/' + uid,
 			contentType: 'text/html',
 			cache: false
 		}).done(function(data) {
-		  t.parent().parent().parent().parent().css('margin-bottom', '0px !important').next('div').html(data).slideDown('fast');
+		  e.html(data).slideDown('fast');
 		}).fail(function(jqXHR, textStatus) {
 		  alert( "Request failed: " + textStatus );
 		});
 	});
-}
 
-$(document).ready(docReady);
-document.addEventListener("page:load", docReady);
+	$('.forum_post').hover(function() {
+		$(this).find('.rate_post').fadeIn('fast');
+	}, function() {
+		$(this).find('.rate_post').fadeOut('fast');
+	});
+}

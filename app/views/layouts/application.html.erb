@@ -13,7 +13,7 @@
 		<%= render 'layouts/header' %>
 		<div id="content">
   			<div class="thin">
-  				<p id="notice"><%= notice %></p>
+  				<% if notice %><div id="notice"><%= notice %></div><% end %>
 				<%= yield %>
 			</div>
 		</div>

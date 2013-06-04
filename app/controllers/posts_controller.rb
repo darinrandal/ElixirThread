@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :same_user, only: [:edit, :update, :destroy]
   before_action :build_post, only: [:index, :new]
 
   def index
@@ -14,7 +15,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-    unauthorized unless current_user?(@post.user)
   end
 
   def create
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
       current_user.update_attributes(:post_count => current_user.post_count + 1)
       redirect_to @post, notice: 'Post was successfully created.'
     else
-      render action: 'new'
+      render 'new'
     end
   end
 
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post, notice: 'Post was successfully updated.'
     else
-      render action: 'edit'
+      render 'edit'
     end
   end
 
@@ -48,6 +48,10 @@ class PostsController < ApplicationController
   private
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def same_user
+      unauthorized unless current_user?(@post.user)
     end
 
     def update_data
@@ -71,9 +75,5 @@ class PostsController < ApplicationController
 
     def current_user?(user)
       user == current_user
-    end
-
-    def unauthorized
-      redirect_to root_path
     end
 end
