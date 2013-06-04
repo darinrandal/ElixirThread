@@ -6,10 +6,11 @@ class EventsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html { render 'index' }
-      format.json  { render :json => @events }
-    end
+    render 'index'
+  end
+
+  def ajax
+  	render :layout => false
   end
 
  private

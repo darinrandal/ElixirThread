@@ -1,12 +1,17 @@
 function docReady()
 {
 	$('.load_events').click(function() {
-		var uid = $(this).attr('uid');
+		var t = $(this);
+		var uid = t.attr('uid');
 
-		$.get('/events/' + uid + '.json', function(data) {
-			//$('.result').html(data);
-			alert(data);
-			console.log(data);
+		$.ajax({
+			url: '/events/ajax/' + uid,
+			contentType: 'text/html',
+			cache: false
+		}).done(function(data) {
+		  t.parent().parent().parent().parent().css('margin-bottom', '0px !important').next('div').html(data).slideDown('fast');
+		}).fail(function(jqXHR, textStatus) {
+		  alert( "Request failed: " + textStatus );
 		});
 	});
 }

@@ -47,7 +47,7 @@
       <%= format_browser(post.browser) %>
       <%= format_country(post.country_code) %>
       <%= image_tag "#{root_path}assets/events.png", :class => "load_events", :uid => post.user.id %>
-      <img src="<%= root_path %>assets/report.png" alt="Report" />
+      <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
     </td>
     <td>
       <div style="float: left;">
@@ -62,6 +62,7 @@
   </tr>
   </tbody>
   </table>
+  <div class="events"></div>
 <% end %>
 
 <% if @posts.count == 0 %>
