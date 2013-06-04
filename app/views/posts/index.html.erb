@@ -51,6 +51,9 @@
     </td>
     <td>
       <div class="ratings">
+        <% post.ratings.each do |r| %>
+          r.id
+        <% end %>
       </div>
       <div id="options<%= post.id %>" style="float: right;">
         <%= image_tag "#{root_path}assets/ratings/moustache.png", :title => "Moustache", :class => "rate_post", :pid => post.id, :rid => 1 %>
