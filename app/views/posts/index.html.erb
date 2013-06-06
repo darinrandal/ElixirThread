@@ -46,7 +46,7 @@
       <%= format_os(post.os) unless post.os.nil? %>
       <%= format_browser(post.browser) unless post.browser.nil? %>
       <%= format_country(post.country_code) unless post.country_code.nil? %>
-      <%= image_tag "#{root_path}assets/events.png", :class => "load_events", :uid => post.user.id %>
+      <%= image_tag "#{root_path}assets/events.png", :class => "load_events" %>
       <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
     </td>
     <td>
@@ -55,25 +55,11 @@
           <%= r.user.username %> rated this post <%= r.rating_type %>
         <% end %>
       </div>
-      <div id="options<%= post.id %>" style="float: right;">
-        <%= image_tag "#{root_path}assets/ratings/moustache.png", :title => "Moustache", :class => "rate_post", :pid => post.id, :rid => 1 %>
-        <%= image_tag "#{root_path}assets/ratings/weed.png", :title => "Smarked", :class => "rate_post", :pid => post.id, :rid => 2 %>
-        <%= image_tag "#{root_path}assets/ratings/tick.png", :title => "Agree", :class => "rate_post", :pid => post.id, :rid => 3 %>
-        <%= image_tag "#{root_path}assets/ratings/cross.png", :title => "Disagree", :class => "rate_post", :pid => post.id, :rid => 4 %>
-        <%= image_tag "#{root_path}assets/ratings/funny.png", :title => "Funny", :class => "rate_post", :pid => post.id, :rid => 5 %>
-        <%= image_tag "#{root_path}assets/ratings/winner.png", :title => "Winner", :class => "rate_post", :pid => post.id, :rid => 6 %>
-        <%= image_tag "#{root_path}assets/ratings/zing.png", :title => "Zing", :class => "rate_post", :pid => post.id, :rid => 7 %>
-        <%= image_tag "#{root_path}assets/ratings/information.png", :title => "Informative", :class => "rate_post", :pid => post.id, :rid => 8 %>
-        <%= image_tag "#{root_path}assets/ratings/heart.png", :title => "Friendly", :class => "rate_post", :pid => post.id, :rid => 9 %>
-        <%= image_tag "#{root_path}assets/ratings/wrench.png", :title => "Useful", :class => "rate_post", :pid => post.id, :rid => 10 %>
-        <%= image_tag "#{root_path}assets/ratings/programming_king.png", :title => "Programming King", :class => "rate_post", :pid => post.id, :rid => 11 %>
-        <%= image_tag "#{root_path}assets/ratings/rainbow.png", :title => "Optimistic", :class => "rate_post", :pid => post.id, :rid => 12 %>
-        <%= image_tag "#{root_path}assets/ratings/palette.png", :title => "Artistic", :class => "rate_post", :pid => post.id, :rid => 13 %>
-        <%= image_tag "#{root_path}assets/ratings/clock.png", :title => "Late", :class => "rate_post", :pid => post.id, :rid => 14 %>
-        <%= image_tag "#{root_path}assets/ratings/box.png", :title => "Dumb", :class => "rate_post", :pid => post.id, :rid => 15 %>
+      <div class="bottom_right">
+        <%= render('ratings', post: post) unless !user_signed_in? %>
         <%= format_post_edit(post) %>
         <%= format_post_delete(post) %>
-        <a href="javascript:void(0);" class="brackets">Quote</a>
+        <%= format_post_quote(post) %>
       </div>
     </td>
   </tr>
@@ -82,9 +68,6 @@
   <div class="events">
     <% post.user.events.each do |e| %>
       <div><%= dispatch_event(e) %></div>
-    <% end %>
-    <% if post.user.events.count == 0 %>
-      <div>There we no events found matching your specified critera</div>
     <% end %>
   </div>
 <% end %>

@@ -19,4 +19,8 @@ module PostsHelper
     def format_post_delete(post)
     	link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => "brackets" unless !current_user?(post.user)
     end
+
+    def format_post_quote(post)
+    	link_to 'Quote', post, :class => "brackets" unless !user_signed_in?
+    end
 end
