@@ -43,16 +43,16 @@
   </tr>
   <tr>
     <td class="postdata">
-      <%= format_os(post.os) %>
-      <%= format_browser(post.browser) %>
-      <%= format_country(post.country_code) %>
+      <%= format_os(post.os) unless post.os.nil? %>
+      <%= format_browser(post.browser) unless post.browser.nil? %>
+      <%= format_country(post.country_code) unless post.country_code.nil? %>
       <%= image_tag "#{root_path}assets/events.png", :class => "load_events", :uid => post.user.id %>
       <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
     </td>
     <td>
       <div class="ratings">
         <% post.ratings.each do |r| %>
-          r.id
+          <%= r.user.username %> rated this post <%= r.rating_type %>
         <% end %>
       </div>
       <div id="options<%= post.id %>" style="float: right;">
@@ -79,7 +79,14 @@
   </tr>
   </tbody>
   </table>
-  <div class="events"></div>
+  <div class="events">
+    <% post.user.events.each do |e| %>
+      <div><%= dispatch_event(e) %></div>
+    <% end %>
+    <% if post.user.events.count == 0 %>
+      <div>There we no events found matching your specified critera</div>
+    <% end %>
+  </div>
 <% end %>
 
 <% if @posts.count == 0 %>
@@ -101,6 +108,9 @@ No posts were found :(
   <a href="/"><strong> Last &gt;&gt;</strong></a>
 </div>
 -->
+
+<%= paginate @posts %>
+
 <% if user_signed_in? %>
 
 <br>

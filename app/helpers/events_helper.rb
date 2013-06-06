@@ -10,11 +10,6 @@ private
 		events[id]
 	end
 
-	def pull_user(user_id)
-		@users = User.all unless defined? @users
-		@users[(user_id)-1]
-	end
-
 	def ago(event)
 		time_ago_in_words(event.created_at) + ' ago'
 	end
@@ -23,9 +18,12 @@ private
 		link_to(text, :controller => 'posts', :action => 'show', :id => event.post_id)
 	end
 
-	def link_to_user(user)
-		t_user = pull_user(user)
-		link_to(t_user.username, t_user)
+	def link_to_p(e)
+		link_to(e.primary_user.username, e.primary_user)
+	end
+
+	def link_to_s(e)
+		link_to(e.secondary_user.username, e.secondary_user)
 	end
 
 	def event_unknown(event)
@@ -33,30 +31,30 @@ private
 	end
 
 	def event_register(event)
-		link_to_user(event.user_id1) + ' registered ' + ago(event)
+		link_to_p(event) + ' registered ' + ago(event)
 	end
 
 	def event_permaban(event)
-		link_to_user(event.user_id1) + ' permabanned ' + link_to_user(event.user_id2) + ' for ' + link_to_post('this post', event) + ' ' + ago(event)
+		link_to_p(event) + ' permabanned ' + link_to_s(event) + ' for ' + link_to_post('this post', event) + ' ' + ago(event)
 	end
 
 	def event_unban(event)
-		link_to_user(event.user_id1) + ' unbanned ' + link_to_user(event.user_id2) + ' ' + ago(event)
+		link_to_p(event) + ' unbanned ' + link_to_s(event) + ' ' + ago(event)
 	end
 
 	def event_trash(event)
-		link_to_user(event.user_id1) + ' trashed ' + link_to_user(event.user_id2) + '\'s ' + link_to_post('post', event) + ' ' + ago(event)
+		link_to_p(event) + ' trashed ' + link_to_s(event) + '\'s ' + link_to_post('post', event) + ' ' + ago(event)
 	end
 
 	def event_untrash(event)
-		link_to_user(event.user_id1) + ' untrashed ' + link_to_user(event.user_id2) + '\'s ' + link_to_post('post', event) + ' ' + ago(event)
+		link_to_p(event) + ' untrashed ' + link_to_s(event) + '\'s ' + link_to_post('post', event) + ' ' + ago(event)
 	end
 
 	def event_usermod(event)
-		link_to_user(event.user_id1) + ' modified ' + link_to_user(event.user_id2) + '\'s account information ' + ago(event)
+		link_to_p(event) + ' modified ' + link_to_s(event) + '\'s account information ' + ago(event)
 	end
 
 	def event_edit(event)
-		link_to_user(event.user_id1) + ' edited ' + link_to_user(event.user_id2) + '\'s post ' + link_to_post('here', event) + ' ' + ago(event)
+		link_to_p(event) + ' edited ' + link_to_s(event) + '\'s post ' + link_to_post('here', event) + ' ' + ago(event)
 	end
 end

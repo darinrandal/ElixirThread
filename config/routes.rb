@@ -1,6 +1,4 @@
 ElixirThread::Application.routes.draw do
-  resources :ratings
-
   resources :events
   resources :posts
 
@@ -8,6 +6,8 @@ ElixirThread::Application.routes.draw do
   resources :users
 
   get "/events/ajax/:id" => "events#ajax"
+  get "/ratings/create" => "ratings#create"
+  get "/ratings/update" => "ratings#update"
 
   root to: 'posts#index'
 end

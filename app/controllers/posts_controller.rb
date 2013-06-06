@@ -41,8 +41,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_url
+    @post.update_attribute :visible, false
+    redirect_to root_path, notice: 'Post was successfully deleted.'
   end
 
   private
