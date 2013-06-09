@@ -5,7 +5,6 @@ ElixirThread::Application.routes.draw do
   devise_for :users, :path_names => { :sign_up => "register", :sign_in => "login", :sign_out => "logout" }, :controllers => {:registrations => "registrations"}
   resources :users
 
-  get "/events/ajax/:id" => "events#ajax"
   get "/ratings/create" => "ratings#create"
   get "/ratings/update" => "ratings#update"
 

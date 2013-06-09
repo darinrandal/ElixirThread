@@ -17,3 +17,5 @@
 
 $(document).ready(documentReady);
 document.addEventListener("page:load", documentReady);
+document.addEventListener("page:fetch", function() { $('#circleG').show(); })
+document.addEventListener("page:receive", function() { $('#circleG').hide(); })

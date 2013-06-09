@@ -1,0 +1,16 @@
+<div id="reply_box">
+  <h3>Post comment</h3>
+  <div class="box pad">
+    <%= form_for @post, :html => { :class =>"send_form center" } do |f| %>
+      <div id="quickreplytext">
+        <div class="textarea_wrap">
+          <%= f.text_area :content, :cols => "65", :rows => "8" %>
+        </div>
+        <br>
+      </div>
+      <div class="preview_submit">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
