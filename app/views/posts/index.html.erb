@@ -23,7 +23,7 @@
       <div style="float: left;">
         <span class="time" title="<%= post.updated_at %>"><%= time_ago_in_words(post.updated_at) %> ago</span>
       </div>
-      <div id="bar<%= post.id %>" style="float: right;">#<%= link_to post.id, post %></div>
+      <div class="topbar">#<%= link_to post.id, post %></div>
     </td>
   </tr>
   <tr>
@@ -51,8 +51,9 @@
     </td>
     <td>
       <div class="ratings">
-        <% post.ratings.each do |r| %>
-          <%= r.user.username %> rated this post <%= r.rating_type %>
+        <% ratings = post.ratings.group(:rating_type).count %>
+        <% ratings.each do |r| %>
+          <%= format_rating(r, (ratings.count > 4 ? true : false )) %>
         <% end %>
       </div>
       <div class="bottom_right">

@@ -22,6 +22,8 @@ div.events { display:none; background-color:rgba(100, 100, 100, 0.15);border-top
 div #notice, div #error { background-color:rgba(100, 100, 100, 0.15); padding:5px; }
 .load_events, .load_report { cursor:pointer; }
 .ratings { float:left; }
+.topbar { float: right; }
+.ratings img { vertical-align:middle; }
 .rate_post { /*transition:.5s; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s;*/ vertical-align:middle; opacity:.4; cursor:pointer; display:none; }
 .bottom_right { float:right; height:14px; }
 .rate_post:hover { opacity:1; }
