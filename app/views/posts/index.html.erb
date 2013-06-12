@@ -36,10 +36,7 @@
     </td>
     <td>
       <div class="ratings">
-        <% ratings = post.ratings.group(:rating_type).count %>
-        <% ratings.each do |r| %>
-          <%= format_rating(r, (ratings.count > 4 ? true : false )) %>
-        <% end %>
+        <%= render('post_ratings', post: post) %>
       </div>
       <div class="bottom_right">
         <%= render('ratings', post: post) unless !user_signed_in? %>

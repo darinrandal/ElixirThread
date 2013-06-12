@@ -1,30 +1,27 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+	devise :database_authenticatable, :registerable,
+		:recoverable, :rememberable, :trackable, :validatable
 
-  has_many :posts
-  has_many :main_events, :foreign_key => :user_id1, :class_name => "Event"
-  has_many :secondary_events, :foreign_key => :user_id2, :class_name => "Event"
-  has_many :ratings, :through => :posts
+	has_many :posts
+	has_many :main_events, :foreign_key => :user_id1, :class_name => "Event"
+	has_many :secondary_events, :foreign_key => :user_id2, :class_name => "Event"
+	has_many :ratings, :through => :posts
 
-  has_attached_file :avatar, :styles => { :medium => "100x300>", :thumb => "80x80>" }, :default_url => "/assets/:style/missing.png"
+	has_attached_file :avatar, :styles => { :medium => "100x300>", :thumb => "80x80>" }, :default_url => "/assets/:style/missing.png"
 
-  validates :username, :uniqueness => { :case_sensitive => false }
-  validates :username, :presence => true
+	validates :username, :uniqueness => { :case_sensitive => false }
+	validates :username, :presence => true
 
-  def events
-    main_events + secondary_events
-  end
+	def events
+		main_events + secondary_events
+	end
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-  	conditions = warden_conditions.dup
-  	if username = conditions.delete(:username)
-  		where(conditions).where(["lower(username) = :value ", { :value => username.downcase }]).first
-  	else
-  		where(conditions).first
-  	end
-  end
+	def self.find_first_by_auth_conditions(warden_conditions)
+		conditions = warden_conditions.dup
+		if username = conditions.delete(:username)
+			where(conditions).where(["lower(username) = :value ", { :value => username.downcase }]).first
+		else
+			where(conditions).first
+		end
+	end
 end

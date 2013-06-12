@@ -1,0 +1,4 @@
+<% ratings = post.ratings.group(:rating_type).count %>
+<% ratings.each do |r| %>
+  <%= format_rating(r, (ratings.count > 4 ? true : false )) %>
+<% end %>
