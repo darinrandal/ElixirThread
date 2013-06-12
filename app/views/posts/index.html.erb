@@ -1,59 +1,6 @@
 <%= pagination = paginate @posts %>
 
-<% @posts.each do |post| %>
-  <table class="forum_post box vertical_margin" id="post<%= post.id %>">
-  <tbody>
-  <tr class="colhead_dark">
-    <td colspan="2">
-      <div style="float: left;">
-        <span class="time" title="<%= post.updated_at %>"><%= time_ago_in_words(post.updated_at) %> ago</span>
-      </div>
-      <div class="topbar">#<%= link_to post.id, post %></div>
-    </td>
-  </tr>
-  <tr>
-    <td class="avatar">
-      <div id="username<%= post.id %>"><%= link_to post.user.username, post.user %></div>
-      <div class="centered" id="bits<%= post.id %>">
-        <%= image_tag post.user.avatar.url, :class => "post_avatar" %><br/>
-        <%= post.user.created_at.to_s(:month_and_year) %><br/>
-        <%= post.user.post_count %> Posts
-      </div>
-    </td>
-    <td class="body">
-      <div id="content<%= post.id %>">
-         <%= simple_format(post.content) %>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td class="postdata">
-      <%= format_os(post.os) unless post.os.nil? %>
-      <%= format_browser(post.browser) unless post.browser.nil? %>
-      <%= format_country(post.country_code) unless post.country_code.nil? %>
-      <%= image_tag "#{root_path}assets/events.png", :class => "load_events" %>
-      <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
-    </td>
-    <td>
-      <div class="ratings">
-        <%= render('post_ratings', post: post) %>
-      </div>
-      <div class="bottom_right">
-        <%= render('ratings', post: post) unless !user_signed_in? %>
-        <%= format_post_edit(post) %>
-        <%= format_post_delete(post) %>
-        <%= format_post_quote(post) %>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-  </table>
-  <div class="events">
-    <% post.user.events.each do |e| %>
-      <div><%= dispatch_event(e) %></div>
-    <% end %>
-  </div>
-<% end %>
+<%= render 'posts', posts: @posts %>
 
 <% if @posts.count == 0 %>
 No posts were found :(

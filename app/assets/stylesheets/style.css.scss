@@ -16,6 +16,7 @@ p, #userinfo_stats li:last-child { margin: 0; }
 p.min_padding, .friends_table td.left input[type="submit"]:first-child { margin-top: 3px; }
 .centered { text-align:center; }
 .post_avatar { margin: 10px 0; }
+.profile_avatar { max-width:100%; }
 .postdata { padding:5px;width:110px !important; }
 .postdata img { vertical-align:middle; }
 div.events { display:none; background-color:rgba(100, 100, 100, 0.15);border-top:1px solid #181818; padding:5px; }
@@ -28,6 +29,7 @@ div #notice, div #error { background-color:rgba(100, 100, 100, 0.15); padding:5p
 .bottom_right { float:right; height:16px; }
 .ratings { height:16px; }
 .rate_post:hover { opacity:1; }
+td.avatar, td.postdata { background-color: rgba(0,0,0,0.12); }
 .body p:not(:first-child) { margin-top:10px; }
 table { border-spacing: 0; border-collapse: collapse; }
 ol, ul { list-style-position: inside; }

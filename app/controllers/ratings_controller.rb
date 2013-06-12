@@ -14,7 +14,7 @@ class RatingsController < ApplicationController
 		else
 			Rating.update(rating, :rating_type => params[:rating_type])
 		end
-		
+
 		render :partial => "posts/post_ratings", :locals => { :post => @post }
 	end
 
