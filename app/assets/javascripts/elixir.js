@@ -35,13 +35,16 @@ function documentReady()
 
 	$('.edit_post').click(function(e) {
 		e.preventDefault();
-		var t = $(this);
-		var id = t.attr('href').split('/')[2];
+		var url = $(this).attr('href');
+		var id = url.split('/')[2];
 		$.ajax({
 			type: "get",
-			url: "/posts/" + id + "/inline"
+			url: url
 		}).done(function(data) {
 			$('#content' + id).html(data);
+			$('.send_form-' + id).bind('ajax:success', function(evt, data, status, xhr){
+				$('#content' + id).html(xhr.responseText);
+			});
 		}).fail(ajaxFail);
 	});
 }

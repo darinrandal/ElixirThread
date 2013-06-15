@@ -6,10 +6,6 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.where(:visible => true).page(params[:page])
-		respond_to do |format|
-			format.html
-			format.json { render :json => @posts }
-		end
 	end
 
 	def show
@@ -19,14 +15,11 @@ class PostsController < ApplicationController
 		end
 	end
 
-	def inline
-		render :layout => false
-	end
-
 	def new
 	end
 
 	def edit
+		render 'inline', :layout => false if request.xhr?
 	end
 
 	def create
@@ -46,7 +39,11 @@ class PostsController < ApplicationController
 		update_data()
 
 		if @post.update(post_params)
-			redirect_to @post, notice: 'Post was successfully updated.'
+			if request.xhr?
+				render 'inline_post', :layout => false
+			else
+				redirect_to @post, notice: 'Post was successfully updated.'
+			end
 		else
 			render 'edit'
 		end
