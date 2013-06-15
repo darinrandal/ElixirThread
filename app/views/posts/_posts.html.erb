@@ -4,7 +4,9 @@
   <tr class="colhead_dark">
     <td colspan="2">
       <div style="float: left;">
-        <span class="time" title="<%= post.updated_at %>"><%= time_ago_in_words(post.updated_at) %> ago</span>
+        <span class="time" title="<%= post.created_at %>">Posted <%= time_ago_in_words(post.created_at) %> ago </span>
+        <span class="edited_at"><%= "(edited " + time_ago_in_words(post.updated_at) + " ago)" unless post.updated_at == post.created_at %></span>
+        </span>
       </div>
       <div class="topbar">#<%= link_to post.id, post %></div>
     </td>

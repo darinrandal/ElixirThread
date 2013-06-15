@@ -1,0 +1,6 @@
+<%= form_for @post, :html => { :class =>"send_form" } do |f| %>
+  <div><%= f.text_area :content, :cols => "65", :rows => "8" %></div>
+  <div class="old_data"><%= @post.content %></div>
+  <%= f.button %>
+  <%= f.submit %>
+<% end %>

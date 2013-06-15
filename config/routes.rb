@@ -13,5 +13,7 @@ ElixirThread::Application.routes.draw do
 
 	resources :users
 
+	get '/posts/:id/inline' => "posts#inline"
+
 	root to: 'posts#index'
 end

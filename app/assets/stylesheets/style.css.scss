@@ -1,15 +1,3 @@
-/*
-    DarkMono v2 - Designed and created by htrd (a.hatred@gmail.com)
-    Everything is copyright 2012 htrd.
-    Distributed under the Creative Commons BY-NC-ND 3.0 License:
-        * You may copy, distribute and transmit this stylesheet and it's associated elements, unaltered and in their entirety, so long as you
-          give proper credit for the creation and design of these elements to htrd and include this written notice of such credit.
-        * You may not use any aspect of this stylesheet or it's design elements for any commercial or public purposes.
-        * You may not alter, transform, or build upon this stylesheet for public use.
-        * By using this stylesheet and it's associated elements, you agree to these Terms of Use and also that these Terms of Use may change at any time, with or without notice.
-    Made exclusively for use on What.cd in 2012.
-*/
-
 * { margin: 0; padding: 0; }
 body { margin: 0; padding: 0; background: #222 url("./bga.png") repeat; color: #9A9A9A; text-shadow: 0.1em 0.1em rgba(0,0,0,0.3); font: 8pt 'Trebuchet MS', "Arial",sans-serif; }
 p, #userinfo_stats li:last-child { margin: 0; }
@@ -25,11 +13,14 @@ div #notice, div #error { background-color:rgba(100, 100, 100, 0.15); padding:5p
 .ratings { float:left; }
 .topbar { float: right; }
 .ratings img { vertical-align:middle; }
+.edited_at { color:#787878; }
+.old_data { display:none; }
 .rate_post { /*transition:.5s; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s;*/ vertical-align:middle; opacity:.4; cursor:pointer; display:none; }
 .bottom_right { float:right; height:16px; }
 .ratings { height:16px; }
+.post_edit_content { width:97.5%; min-height:120px; }
 .rate_post:hover { opacity:1; }
-td.avatar, td.postdata { background-color: rgba(0,0,0,0.12); }
+td.avatar, td.postdata { background-color: rgba(0,0,0,0.12); vertical-align:top; }
 .body p:not(:first-child) { margin-top:10px; }
 table { border-spacing: 0; border-collapse: collapse; }
 ol, ul { list-style-position: inside; }

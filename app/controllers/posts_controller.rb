@@ -1,14 +1,26 @@
 class PostsController < ApplicationController
 	before_filter :authenticate_user!, except: [:show, :index]
-	before_action :set_post, only: [:show, :edit, :update, :destroy]
+	before_action :set_post, only: [:show, :edit, :update, :destroy, :inline]
 	before_action :same_user, only: [:edit, :update, :destroy]
 	before_action :build_post, only: [:index, :new]
 
 	def index
 		@posts = Post.where(:visible => true).page(params[:page])
+		respond_to do |format|
+			format.html
+			format.json { render :json => @posts }
+		end
 	end
 
 	def show
+		respond_to do |format|
+			format.html
+			format.json { render :json => @post }
+		end
+	end
+
+	def inline
+		render :layout => false
 	end
 
 	def new

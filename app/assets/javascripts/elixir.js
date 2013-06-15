@@ -19,7 +19,6 @@ function documentReady()
 		var attack = t.parent().parent().find('.ratings');
 		attack.fadeOut('fast', function() {
 			$.ajax({
-				async: "false",
 				type: "POST",
 				url: "/ratings",
 				data: { 
@@ -30,9 +29,24 @@ function documentReady()
 			}).done(function(rtn) {
 				attack.html(rtn);
 				attack.fadeIn('fast');
-			}).fail(function(jqXHR, textStatus) {
-				alert( "Request failed: " + textStatus );
-			});
+			}).fail(ajaxFail);
 		});
 	});
+
+	$('.edit_post').click(function(e) {
+		e.preventDefault();
+		var t = $(this);
+		var id = t.attr('href').split('/')[2];
+		$.ajax({
+			type: "get",
+			url: "/posts/" + id + "/inline"
+		}).done(function(data) {
+			$('#content' + id).html(data);
+		}).fail(ajaxFail);
+	});
+}
+
+function ajaxFail(jqXHR, textStatus)
+{
+	alert('Ajax Fail: ' + textStatus);
 }

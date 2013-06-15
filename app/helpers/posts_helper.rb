@@ -13,7 +13,7 @@ module PostsHelper
 	end
 
 	def format_post_edit(post)
-		link_to 'Edit', edit_post_path(post), :class => "brackets" unless !current_user?(post.user)
+		link_to 'Edit', edit_post_path(post), :class => "edit_post brackets" unless !current_user?(post.user)
     end
 
     def format_post_delete(post)
