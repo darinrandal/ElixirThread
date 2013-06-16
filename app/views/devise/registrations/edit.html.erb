@@ -1,35 +1,74 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "edit_form" }) do |f| %>
+<%= devise_error_messages! %>
+<div class="header">
+	<h2>User Preferences</h2>
+</div>
+<table cellpadding="6" cellspacing="1" border="0" width="100%" class="layout border user_options">
+	<tr class="colhead_dark">
+		<td colspan="2">
+			<strong>User information</strong>
+		</td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Username</strong></td>
+		<td><%= f.text_field :username, :size => 50 %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Avatar</strong></td>
+		<td><%= f.file_field :avatar, :style => "width:290px;" %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Email address</strong></td>
+		<td><%= f.text_field :email, :size => 50 %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Steam profile</strong></td>
+		<td><%= f.text_field :steam, :size => 50 %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Last.fm username</strong></td>
+		<td>
+			<%= f.text_field :lastfm, :size => 50 %>
+			<p class="min_padding">Your Last.fm username. Will be used to display Last.fm information on your profile which can be seen by other users.</p>
+		</td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Profile Description</strong></td>
+		<td>
+			<div id="textarea_wrap_0" class="textarea_wrap"><%= f.text_area :description, :cols => 50, :rows => 8 %></div>
+		</td>
+	</tr>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+	<tr class="colhead_dark">
+		<td colspan="2">
+			<strong>Change password</strong>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><p class="min-padding">Do not fill this section out if you don't wish to change your password</p></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>New password</strong></td>
+		<td><%= f.password_field :password, :autocomplete => "off", :size => 40, :class => 'p_field' %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Re-type new password</strong></td>
+		<td><%= f.password_field :password_confirmation, :size => 40, :class => 'p_field' %></td>
+	</tr>
 
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username, :autofocus => true %></div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-
-  <div><%= f.label :avatar %><br />
-  <%= f.file_field :avatar %></div>
-
-  <div><%= f.submit "Update" %></div>
+	<tr class="colhead_dark">
+		<td colspan="2">
+			<strong>Verification</strong>
+		</td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Current password</strong></td>
+		<td><%= f.password_field :current_password, :size => 40 %>
+		<p id="user_current_password_label" class="min_padding">Enter your current password to update your preferences</p></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="right"><input type="submit" value="Save Profile" /></td>
+	</tr>
+</table>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-
-<%= link_to "Back", :back %>

@@ -1,134 +1,60 @@
 
-	<h2><%= @user.username %></h2>
-	<div class="linkbox">
-	</div>
+<h2><%= @user.username %></h2>
+<div class="linkbox">
+</div>
 
-	<div class="sidebar">
-		<div class="box box_image box_image_avatar">
-			<div class="head colhead_dark">Avatar</div>
-			<div align="center">
-				<%= image_tag @user.avatar.url, :class => "profile_avatar" %>
-			</div>
-		</div>
-		<div class="box box_info box_userinfo_stats">
-			<div class="head colhead_dark">Stats</div>
-			<ul class="stats nobullet">
-				<li>Joined: <%= @user.created_at.to_s(:month_and_year) %></li>
-				<li>Last logged in: <%= time_ago_in_words(@user.last_sign_in_at) %> ago</li>
-				<li>Signed in: <%= pluralize(@user.sign_in_count, "time") %></li>
-				<li>Posts: <%= @user.post_count %></li>
-				<li>Smartness: <span class="r50">126</span></li>
-			</ul>
-		</div>
-
-
-		<div class="box box_info box_lastfm">
-			<div class="head colhead_dark">Last.fm</div>
-			<ul class="stats nobullet">
-				<li>
-					Username: <a id="lastfm_username" href="http://www.last.fm/user/Erppy" target="_blank" title="Erppy on Last.fm: 9,582 plays, 0 playlists.">Erppy</a>
-				</li>
-				<div id="lastfm_stats" data-uid="1">
-				</div>
-				<li>
-					<a href="#" id="lastfm_expand" onclick="return false" class="brackets">Show more info</a>
-					<span id="lastfm_reload_container">
-						<a href="#" id="lastfm_reload" onclick="return false" class="brackets">Reload stats</a>
-					</span>
-				</li>
-			</ul>
-		</div>
-		<div class="box box_info box_userinfo_percentile">
-			<div class="head colhead_dark">Percentile rankings (hover for values)</div>
-			<ul class="stats nobullet">
-				<li title="24.43 GB">Data uploaded: 56</li>
-				<li title="3.76 GB">Data downloaded: 22</li>
-				<li title="0">Torrents uploaded: 0</li>
-				<li title="0">Requests filled: 0</li>
-				<li title="939.60 MB">Bounty spent: 77</li>
-				<li title="0">Posts made: 0</li>
-				<li title="0">Artists added: 0</li>
-				<li><strong>Overall rank: 21</strong></li>
-			</ul>
-		</div>
-		<div class="box box_info box_userinfo_personal">
-			<div class="head colhead_dark">Personal</div>
-			<ul class="stats nobullet">
-				<li>Class: Member</li>
-				<li>Paranoia level: <span title="0">Off</span></li>
-				<li>Email: <a href="mailto:tehwhale@live.com">tehwhale@live.com</a>
-				</li>
-				<li>Passkey: <a href="#" id="passkey" onclick="togglePassKey('77mmf3i25swerrtd646isw60s29ddi1w'); return false;" class="brackets">View</a></li>
-		<li>Clients: uTorrent/3300(29625)</li>
-			</ul>
-		</div>
-		<div class="box box_info box_userinfo_community">
-			<div class="head colhead_dark">Community</div>
-			<ul class="stats nobullet">
-				<li>Forum posts: 0 <a href="userhistory.php?action=posts&amp;userid=359812" class="brackets" title="View">View</a></li>
-				<li>Torrent comments: 1					<a href="comments.php?id=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>Artist comments: 1					<a href="comments.php?id=359812&amp;action=artists" class="brackets" title="View">View</a>
-				</li>
-				<li>Collage comments: 0					<a href="comments.php?id=359812&amp;action=collages" class="brackets" title="View">View</a>
-				</li>
-				<li>Request comments: 0					<a href="comments.php?id=359812&amp;action=requests" class="brackets" title="View">View</a>
-				</li>
-				<li>Collages started: 0					<a href="collages.php?userid=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>Collages contributed to: 0					<a href="collages.php?userid=359812&amp;contrib=1" class="brackets" title="View">View</a>
-				</li>
-				<li>
-					<span>Requests filled: 0</span>
-					<span> for 0.00 B</span>
-					<a href="requests.php?type=filled&amp;userid=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>
-					<span>Requests created: 1</span>
-					<span> for 939.60 MB</span>
-					<a href="requests.php?type=created&amp;userid=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>
-					<span>Requests voted: 1</span>
-					<span> for 939.60 MB</span>
-					<a href="requests.php?type=voted&amp;userid=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>Uploaded: 0					<a href="torrents.php?type=uploaded&amp;userid=359812" class="brackets" title="View">View</a>
-					<a href="torrents.php?action=redownload&amp;type=uploads&amp;userid=359812" onclick="return confirm('If you no longer have the content, your ratio WILL be affected; be sure to check the size of all torrents before redownloading.');" class="brackets" title="Download">Download</a>
-				</li>
-				<li>Unique groups: 0					<a href="torrents.php?type=uploaded&amp;userid=359812&amp;filter=uniquegroup" class="brackets" title="View">View</a>
-				</li>
-				<li>"Perfect" FLACs: 0					<a href="torrents.php?type=uploaded&amp;userid=359812&amp;filter=perfectflac" class="brackets" title="View">View</a>
-				</li>
-				<li>Seeding: 148<span> (98%)</span>					<a href="torrents.php?type=seeding&amp;userid=359812" class="brackets" title="View">View</a>
-					<a href="torrents.php?action=redownload&amp;type=seeding&amp;userid=359812" onclick="return confirm('If you no longer have the content, your ratio WILL be affected; be sure to check the size of all torrents before redownloading.');" class="brackets" title="Download">Download</a>
-				</li>
-				<li>Leeching: 0					<a href="torrents.php?type=leeching&amp;userid=359812" class="brackets" title="View">View</a>
-				</li>
-				<li>Snatched: 155					<a href="torrents.php?type=snatched&amp;userid=359812" class="brackets" title="View">View</a>
-					<a href="torrents.php?action=redownload&amp;type=snatches&amp;userid=359812" onclick="return confirm('If you no longer have the content, your ratio WILL be affected, be sure to check the size of all torrents before redownloading.');" class="brackets" title="Download">Download</a>
-				</li>
-				<li>Invited: 1</li>
-			</ul>
+<div class="sidebar">
+	<div class="box box_image box_image_avatar">
+		<div class="head colhead_dark">Avatar</div>
+		<div align="center">
+			<%= image_tag @user.avatar.url, :class => "profile_avatar" %>
 		</div>
 	</div>
-	<div class="main_column">
-		<div class="box">
-			<div class="head">
-				<span style="float: left;">Profile</span>
-				<span style="float: right;"><a href="#" onclick="$('#profilediv').toggle(); this.innerHTML=(this.innerHTML == 'Hide' ? 'Show' : 'Hide'); return false;" class="brackets">Hide</a></span>&nbsp;
-			</div>
-			<div class="pad" id="profilediv">
-				&lt;&lt;User description will go here eventually&gt;&gt;
-			</div>
-		</div>
-		<table class="layout recent" id="recent_snatches" cellpadding="0" cellspacing="0" border="0">
-			<tr class="colhead">
-				<td colspan="5">
-					Recent posts
-				</td>
-			</tr>
-		</table>
-		<%= render 'posts/posts', posts: @posts %>
-	<br />
+	<div class="box box_info box_userinfo_stats">
+		<div class="head colhead_dark">Stats</div>
+		<ul class="stats nobullet">
+			<li>Joined: <%= @user.created_at.to_s(:month_and_year) %></li>
+			<li>Last activity: <%= time_ago_in_words(@user.last_active_at) %> ago</li>
+			<li>Signed in: <%= pluralize(@user.sign_in_count, "time") %></li>
+			<li>Posts: <%= @user.post_count %></li>
+			<li>Smartness: <span class="r50">126</span></li>
+		</ul>
 	</div>
+
+	<div class="box box_info box_lastfm">
+		<div class="head colhead_dark">Last.fm</div>
+		<ul class="stats nobullet">
+			<li>
+				Username: <a id="lastfm_username" href="http://www.last.fm/user/Erppy" target="_blank" title="Erppy on Last.fm: 9,582 plays, 0 playlists.">Erppy</a>
+			</li>
+			<div id="lastfm_stats" data-uid="1">
+			</div>
+			<li>
+				<a href="#" id="lastfm_expand" onclick="return false" class="brackets">Show more info</a>
+				<span id="lastfm_reload_container">
+					<a href="#" id="lastfm_reload" onclick="return false" class="brackets">Reload stats</a>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="main_column">
+	<div class="box">
+		<div class="head">
+			<span style="float: left;">Profile</span>
+			<span style="float: right;"><a href="#" onclick="$('#profilediv').toggle(); this.innerHTML=(this.innerHTML == 'Hide' ? 'Show' : 'Hide'); return false;" class="brackets">Hide</a></span>&nbsp;
+		</div>
+		<div class="pad" id="profilediv">
+			<%= @user.description.presence || "This user does not have a description :(" %>
+		</div>
+	</div>
+	<table class="layout recent" id="recent_snatches" cellpadding="0" cellspacing="0" border="0">
+		<tr class="colhead">
+			<td colspan="5">
+				Recent posts
+			</td>
+		</tr>
+	</table>
+	<%= render 'posts/posts', posts: @posts %>
+<br />
+</div>

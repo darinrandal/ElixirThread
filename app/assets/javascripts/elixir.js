@@ -47,9 +47,57 @@ function documentReady()
 			});
 		}).fail(ajaxFail);
 	});
+
+	$('#edit_user').submit(function() {
+		var input = $('#user_current_password');
+		var label = $('#user_current_password_label');
+
+		if(passwordCheck() == false)
+			return false;
+
+		if(input.val() == '')
+		{
+			input.focus();
+			label.addClass('r00');
+			input.keyup(function() {
+				if(input.val() == '') {
+					label.addClass('r00');
+				} else {
+					label.removeClass('r00');
+				}
+			})
+			return false;
+		}
+	});
+
+	$('.p_field').keyup(passwordCheck);
 }
 
 function ajaxFail(jqXHR, textStatus)
 {
 	alert('Ajax Fail: ' + textStatus);
 }
+
+function passwordCheck()
+{
+	var pass = $('#user_password');
+	var pass_conf = $('#user_password_confirmation');
+
+	if((pass.val() != '' && pass_conf.val() != '') && (pass.val() != pass_conf.val()))
+	{
+		if($('#pass_notif').length == 0)
+			pass_conf.after('<p id="pass_notif" class="min_padding r00">The passwords you entered do not match</p>');
+
+		return false;
+	} else {
+		$('#pass_notif').remove();
+		return true;
+	}
+}
+
+
+
+
+
+
+

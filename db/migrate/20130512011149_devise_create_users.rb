@@ -7,6 +7,11 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :encrypted_password, :null => false, :default => ""
 
       t.integer :post_count, :default => 0
+      t.text :description, :null => false, :default => ""
+      t.string :steam, :null => false, :default => ""
+      t.string :lastfm, :null => false, :default => ""
+
+      t.attachment :avatar
 
       ## Recoverable
       t.string   :reset_password_token
@@ -19,6 +24,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer  :sign_in_count, :default => 0
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at
+      t.datetime :last_active_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
@@ -34,7 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       ## Token authenticatable
-      t.string :authentication_token
+      # t.string :authentication_token
 
 
       t.timestamps
@@ -45,6 +51,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
-    add_index :users, :authentication_token, :unique => true
+    # add_index :users, :authentication_token, :unique => true
   end
 end
