@@ -1,8 +1,23 @@
 // Turbolinks pageload and jQuery(document).ready() are binded to this, use it!
 function documentReady()
 {
-	$('.load_events').click(function() {
-		$(this).parent().parent().parent().parent().next('div').slideToggle('fast');
+	unbindOld();
+
+	$('.load_events').click(function(e) {
+		e.preventDefault();
+		var div = $(this).parent().parent().parent().parent().next('div');
+		var url = $(this).attr('href');
+		var id = url.split('/')[2];
+		if(div.html() == '') {
+			$.ajax({
+				type: "get",
+				url: url
+			}).done(function(data) {
+				div.html(data).slideToggle('fast');
+			}).fail(ajaxFail);
+		} else {
+			div.slideToggle('fast');
+		}
 	});
 
 	$('.forum_post').hover(function() {
@@ -42,8 +57,9 @@ function documentReady()
 			url: url
 		}).done(function(data) {
 			$('#content' + id).html(data);
-			$('.send_form-' + id).bind('ajax:success', function(evt, data, status, xhr){
-				$('#content' + id).html(xhr.responseText);
+			$('.send_form-' + id).bind('ajax:success', function(evt, data, status, xhr) {
+				$('#post' + id).replaceWith(xhr.responseText);
+				documentReady();
 			});
 		}).fail(ajaxFail);
 	});
@@ -70,7 +86,47 @@ function documentReady()
 		}
 	});
 
+	$('#new_post').submit(function() {
+		var text = $('#post_content');
+		if(text.val() == '') {
+			if($('.chill-box').length == 0)
+				$('#reply_box').before('<div class="chill-box"><span class="r00">Error:</span> Your cannot make a blank post :(</div>');
+
+			text.focus();
+			return false;
+		}
+		return true;
+	});
+
 	$('.p_field').keyup(passwordCheck);
+
+	$('#new_post').bind('ajax:success', function(evt, data, status, xhr) {
+		$('#reply_box').before(xhr.responseText);
+		$('.post-container').last().slideDown('slow', function() {
+			$("html, body").animate({ scrollTop: $('.forum_post').last().offset().top }, 1000);
+		});
+		$('#post_content').val('');
+		documentReady();
+	}).bind('ajax:before', function() {
+		$('.chill-box').remove();
+	});
+
+	$('.del-ajax').click(function(e) {
+		e.preventDefault();
+		if(confirm("Are you sure you wish to delete this post?") == false)
+			return false;
+
+		var url = $(this).attr('href');
+		var id = url.split('/')[2];
+
+		$.ajax({
+			type: "delete",
+			url: url
+		}).done(function(data) {
+			if(data == 'true')
+				$('#post' + id).slideUp('slow');
+		}).fail(ajaxFail);
+	});
 }
 
 function ajaxFail(jqXHR, textStatus)
@@ -95,6 +151,17 @@ function passwordCheck()
 	}
 }
 
+function unbindOld()
+{
+	$('.load_events').off();
+	$('.forum_post').off();
+	$('.rate_post').off();
+	$('.edit_post').off();
+	$('#edit_user').off();
+	$('.p_field').off();
+	$('#new_post').off();
+	$('.del-ajax').off();
+}
 
 
 

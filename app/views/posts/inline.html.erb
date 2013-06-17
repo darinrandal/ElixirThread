@@ -2,7 +2,7 @@
   <div><%= f.text_area :content, :rows => "8", :style => "width:97.5%;" %></div>
   <div id="od-<%=@post.id%>" class="old_data"><%= simple_format(@post.content) %></div>
   <div style="float:right;">
-  <%= f.submit "Update", :disable_with => "Updating.." %>
+  <%= f.submit "Update", data: { disable_with: "Updating.." } %>
   <input type="button" value="Cancel" onclick="$(this).parent().parent().html($('#od-<%=@post.id%>').html());" />
   </div>
 <% end %>

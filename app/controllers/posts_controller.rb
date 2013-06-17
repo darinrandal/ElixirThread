@@ -5,12 +5,12 @@ class PostsController < ApplicationController
 	before_action :build_post, only: [:index, :new]
 
 	def index
-		@posts = Post.where(:visible => true).page(params[:page])
+		@posts = Post.joins(:user).where(:visible => true).page(params[:page])
 	end
 
 	def show
 		respond_to do |format|
-			format.html
+			format.html { render '_posts', :locals => { posts: Array(@post) } }
 			format.json { render :json => @post }
 		end
 	end
@@ -29,9 +29,17 @@ class PostsController < ApplicationController
 
 		if @post.save
 			current_user.update_attributes(:post_count => current_user.post_count + 1)
-			redirect_to @post, notice: 'Post was successfully created.'
+			if request.xhr?
+				render '_posts', :locals => { posts: Array(@post), hidden: 'true' }, :layout => false
+			else
+				redirect_to @post, notice: 'Post was successfully created.'
+			end
 		else
-			render 'new'
+			if request.xhr?
+				render '_errors', :layout => false
+			else
+				render 'new'
+			end
 		end
 	end
 
@@ -40,7 +48,7 @@ class PostsController < ApplicationController
 
 		if @post.update(post_params)
 			if request.xhr?
-				render 'inline_post', :layout => false
+				render '_posts', :locals => { posts: Array(@post) }, :layout => false
 			else
 				redirect_to @post, notice: 'Post was successfully updated.'
 			end
@@ -51,7 +59,7 @@ class PostsController < ApplicationController
 
 	def destroy
 		@post.update_attribute :visible, false
-		redirect_to root_path, notice: 'Post was successfully deleted.'
+		render :text => 'true'
 	end
 
 	private

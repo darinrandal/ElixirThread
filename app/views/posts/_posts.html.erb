@@ -1,5 +1,6 @@
 <% posts.each do |post| %>
-  <table class="forum_post box vertical_margin" id="post<%= post.id %>">
+<div id="post<%= post.id %>" class="post-container">
+  <table class="forum_post box vertical_margin">
   <tbody>
   <tr class="colhead_dark">
     <td colspan="2">
@@ -31,7 +32,7 @@
       <%= format_os(post.os) unless post.os.nil? %>
       <%= format_browser(post.browser) unless post.browser.nil? %>
       <%= format_country(post.country_code) unless post.country_code.nil? %>
-      <%= image_tag "#{root_path}assets/events.png", :class => "load_events" %>
+      <a class="load_events" href="/events/<%= post.user.id %>"><%= image_tag "#{root_path}assets/events.png" %></a>
       <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
     </td>
     <td>
@@ -48,9 +49,6 @@
   </tr>
   </tbody>
   </table>
-  <div class="events">
-    <% post.user.events.each do |e| %>
-      <div><%= dispatch_event(e) %></div>
-    <% end %>
-  </div>
+  <div class="events"></div>
+</div>
 <% end %>
