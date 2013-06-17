@@ -67,8 +67,12 @@ function documentReady()
 	$('#edit_user').submit(function() {
 		var input = $('#user_current_password');
 		var label = $('#user_current_password_label');
+		var avatar = $('#user_avatar');
 
 		if(passwordCheck() == false)
+			return false;
+
+		if(avatarCheck() == false)
 			return false;
 
 		if(input.val() == '')
@@ -99,6 +103,7 @@ function documentReady()
 	});
 
 	$('.p_field').keyup(passwordCheck);
+	$('#user_avatar').change(avatarCheck);
 
 	$('#new_post').bind('ajax:success', function(evt, data, status, xhr) {
 		$('#reply_box').before(xhr.responseText);
@@ -132,6 +137,23 @@ function documentReady()
 function ajaxFail(jqXHR, textStatus)
 {
 	alert('Ajax Fail: ' + textStatus);
+}
+
+function avatarCheck()
+{
+	var avatar = $('#user_avatar');
+	if(avatar.val() != '')
+	{
+		ext = avatar.val().split('.').pop();
+		if(ext != 'png' && ext != 'jpg' && ext != 'gif' && ext != 'jpeg') {
+			if($('#file_notif').length == 0)
+				avatar.after('<p id="file_notif" class="min_padding r00">You can only upload images as an avatar</p>');
+
+			return false;
+		} else {
+			$('#file_notif').remove();
+		}
+	}
 }
 
 function passwordCheck()

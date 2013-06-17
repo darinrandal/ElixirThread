@@ -7,7 +7,11 @@ class User < ActiveRecord::Base
 	has_many :secondary_events, :foreign_key => :user_id2, :class_name => "Event"
 	has_many :ratings, :through => :posts
 
-	has_attached_file :avatar, :styles => { :medium => "100x300>", :thumb => "80x80>" }, :default_url => "/assets/:style/missing.png"
+	has_attached_file :avatar, :default_url => "/assets/:style/missing.png"#, 
+		#:url => "/system/:hash.:extension",
+    	#:hash_secret => "ElixirThread"
+	validates_with AttachmentContentTypeValidator, :content_type => /image/, :attributes => :avatar, :message => "must be an image"
+	validates_with AttachmentSizeValidator, :less_than_or_equal_to => 60.kilobytes, :attributes => :avatar, :message => "must be less than or equal to 60 kilobytes"
 
 	validates :username, :uniqueness => { :case_sensitive => false }
 	validates :username, :presence => true
