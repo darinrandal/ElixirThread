@@ -8,4 +8,4 @@ No posts were found :(
 
 <%= pagination %>
 
-<%= render 'footer_post' unless !user_signed_in? %>
+<%= render 'footer_post' if user_signed_in? %>
