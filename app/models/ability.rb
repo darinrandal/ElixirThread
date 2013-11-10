@@ -7,6 +7,11 @@ class Ability
         can :manage, :all
     elsif user.moderator?
         can :manage, Post
+    elsif user.username != ""
+        can :read, :all
+        can :create, Post
+        can :edit, Post, :user_id => user.id
+        can :update, Post, :user_id => user.id
     else
         can :read, :all
     end

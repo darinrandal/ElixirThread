@@ -79,10 +79,10 @@ class PostsController < ApplicationController
 		end
 
 		def build_post
-			@post = current_user.posts.build unless !user_signed_in?
+			@post = current_user.posts.build if can? :create, Post
 		end
 
 		def post_params
-			params[:post].permit(:content)
+			params.require(:post).permit(:content)
 		end
 end
