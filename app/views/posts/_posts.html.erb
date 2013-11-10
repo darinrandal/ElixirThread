@@ -33,7 +33,7 @@
       <%= format_browser(post.browser) unless post.browser.nil? %>
       <%= format_country(post.country_code) unless post.country_code.nil? %>
       <a class="load_events" href="/events/<%= post.user.id %>"><%= image_tag "#{root_path}assets/events.png" %></a>
-      <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id %>
+      <%= image_tag "#{root_path}assets/report.png", :class => "load_report", :pid => post.id if can? :report, post %>
     </td>
     <td>
       <div class="ratings">
