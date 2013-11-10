@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.0.rc1'
-ruby '2.0.0'
+gem 'rails', '4.0.1'
 
 group :development do
 	gem 'sqlite3'
@@ -10,14 +9,13 @@ group :production do
 	gem 'pg'
 end
 
-
-gem 'devise', :github => 'plataformatec/devise', :branch => 'rails4'
-gem 'paperclip', :github => 'thoughtbot/paperclip', :branch => 'rails-4'
+gem 'devise'
+gem 'paperclip'
 
 group :assets do
-  gem 'sass-rails',   '4.0.0.rc1'
-  gem 'coffee-rails', '4.0.0'
-  gem 'uglifier', '2.1.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 gem 'jquery-rails'
@@ -25,3 +23,4 @@ gem 'turbolinks'
 gem 'weary'
 gem 'useragent'
 gem 'kaminari'
+gem 'cancan'

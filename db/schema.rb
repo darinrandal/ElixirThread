@@ -42,13 +42,15 @@ ActiveRecord::Schema.define(version: 20130604012506) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",               default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.integer  "post_count",             default: 0
-    t.text     "description",            default: "", null: false
-    t.string   "steam",                  default: "", null: false
-    t.string   "lastfm",                 default: "", null: false
+    t.text     "description",            default: "",    null: false
+    t.string   "steam",                  default: "",    null: false
+    t.string   "lastfm",                 default: "",    null: false
+    t.boolean  "admin",                  default: false
+    t.boolean  "moderator",              default: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

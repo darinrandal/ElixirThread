@@ -6,6 +6,8 @@
 No posts were found :(
 <% end %>
 
+<div style="margin-top:10px;">
 <%= pagination %>
+</div>
 
-<%= render 'footer_post' unless !user_signed_in? %>
+<%= render 'footer_post' if user_signed_in? %>

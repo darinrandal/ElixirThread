@@ -11,6 +11,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :steam, :null => false, :default => ""
       t.string :lastfm, :null => false, :default => ""
 
+      t.boolean :admin, :default => false
+      t.boolean :moderator, :default => false
+
       t.attachment :avatar
 
       ## Recoverable

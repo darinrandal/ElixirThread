@@ -13,15 +13,15 @@ module PostsHelper
 	end
 
 	def format_post_edit(post)
-		link_to 'Edit', edit_post_path(post), :class => "edit_post brackets" unless !current_user?(post.user)
+		link_to 'Edit', edit_post_path(post), :class => "edit_post brackets" if can? :edit, post
     end
 
     def format_post_delete(post)
-    	link_to 'Delete', post, :class => "brackets del-ajax" unless !current_user?(post.user)
+    	link_to 'Delete', post, :class => "brackets del-ajax" if can? :delete, post
     end
 
     def format_post_quote(post)
-    	link_to 'Quote', post, :class => "brackets" unless !user_signed_in?
+    	link_to 'Quote', post, :class => "brackets" if can? :create, post
     end
 
     def rating_by_name(id)

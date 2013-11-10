@@ -15,10 +15,12 @@ div #notice, div #error, .chill-box { background-color:rgba(100, 100, 100, 0.15)
 .topbar { float: right; }
 .ratings img { vertical-align:middle; }
 .edited_at { color:#787878; }
+nav.pagination:nth-child(2) { margin-top:10px; };
 .old_data { display:none; }
 .rate_post { /*transition:.5s; -o-transition:.5s; -ms-transition:.5s; -moz-transition:.5s; -webkit-transition:.5s;*/ vertical-align:middle; opacity:.4; cursor:pointer; display:none; }
 .bottom_right { float:right; height:16px; }
 .ratings { height:16px; }
+.admin_star { vertical-align:top;height:14px;cursor:pointer; }
 .post_edit_content { width:97.5%; min-height:120px; }
 .rate_post:hover { opacity:1; }
 td.avatar, td.postdata { background-color: rgba(0,0,0,0.12); vertical-align:top; }

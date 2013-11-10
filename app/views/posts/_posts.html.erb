@@ -39,8 +39,24 @@
       <div class="ratings">
         <%= render('posts/post_ratings', post: post) %>
       </div>
-      <div class="bottom_right">
-        <%= render('posts/ratings', post: post) unless !user_signed_in? %>
+      <div class="bottom_right" pid="<%= post.id %>">
+        <% if user_signed_in? %>
+          <img alt="Moustache" class="rate_post" rid="1" src="/assets/ratings/moustache.png" title="Moustache" />
+          <img alt="Smarked" class="rate_post" rid="2" src="/assets/ratings/smarked.png" title="Smarked" />
+          <img alt="Agree" class="rate_post" rid="3" src="/assets/ratings/agree.png" title="Agree" />
+          <img alt="Disagree" class="rate_post" rid="4" src="/assets/ratings/disagree.png" title="Disagree" />
+          <img alt="Funny" class="rate_post" rid="5" src="/assets/ratings/funny.png" title="Funny" />
+          <img alt="Winner" class="rate_post" rid="6" src="/assets/ratings/winner.png" title="Winner" />
+          <img alt="Zing" class="rate_post" rid="7" src="/assets/ratings/zing.png" title="Zing" />
+          <img alt="Informative" class="rate_post" rid="8" src="/assets/ratings/informative.png" title="Informative" />
+          <img alt="Friendly" class="rate_post" rid="9" src="/assets/ratings/friendly.png" title="Friendly" />
+          <img alt="Useful" class="rate_post" rid="10" src="/assets/ratings/useful.png" title="Useful" />
+          <img alt="Programming King" class="rate_post" rid="11" src="/assets/ratings/programming king.png" title="Programming King" />
+          <img alt="Optimistic" class="rate_post" rid="12" src="/assets/ratings/optimistic.png" title="Optimistic" />
+          <img alt="Artistic" class="rate_post" rid="13" src="/assets/ratings/artistic.png" title="Artistic" />
+          <img alt="Late" class="rate_post" rid="14" src="/assets/ratings/late.png" title="Late" />
+          <img alt="Dumb" class="rate_post" rid="15" src="/assets/ratings/dumb.png" title="Dumb" />
+        <% end %>
         <%= format_post_edit(post) %>
         <%= format_post_delete(post) %>
         <%= format_post_quote(post) %>

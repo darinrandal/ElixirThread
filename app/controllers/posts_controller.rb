@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
-	before_filter :authenticate_user!, except: [:show, :index]
-	before_action :set_post, only: [:show, :edit, :update, :destroy, :inline]
-	before_action :same_user, only: [:edit, :update, :destroy]
 	before_action :build_post, only: [:index, :new]
+
+	load_and_authorize_resource
 
 	def index
 		@posts = Post.joins(:user).where(:visible => true).page(params[:page])
@@ -23,23 +22,30 @@ class PostsController < ApplicationController
 	end
 
 	def create
-		@post = current_user.posts.build(post_params)
+		last = Post.last
+		if last.nil? || last.user_id != current_user.id
+			@post = current_user.posts.build(post_params)
 
-		update_data()
+			update_data()
 
-		if @post.save
-			current_user.update_attributes(:post_count => current_user.post_count + 1)
-			if request.xhr?
-				render '_posts', :locals => { posts: Array(@post), hidden: 'true' }, :layout => false
+			if @post.save
+				current_user.update_attributes(:post_count => current_user.post_count + 1)
+				if request.xhr?
+					render '_posts', :locals => { posts: Array(@post) }, :layout => false
+				else
+					redirect_to @post, notice: 'Post was successfully created.'
+				end
 			else
-				redirect_to @post, notice: 'Post was successfully created.'
+				if request.xhr?
+					render '_errors', :layout => false
+				else
+					render 'new'
+				end
 			end
 		else
-			if request.xhr?
-				render '_errors', :layout => false
-			else
-				render 'new'
-			end
+			last.content = last.content + "\n\n<span class='r50'>Edited:</span>\n\n" + params[:post][:content]
+			last.save
+			render '_posts', :locals => { posts: Array(last) }, :layout => false
 		end
 	end
 
@@ -63,14 +69,6 @@ class PostsController < ApplicationController
 	end
 
 	private
-		def set_post
-			@post = Post.find(params[:id])
-		end
-
-		def same_user
-			unauthorized unless current_user?(@post.user)
-		end
-
 		def update_data
 			user_agent = UserAgent.parse(request.env["HTTP_USER_AGENT"])
 			country_code = JSON.parse(Weary::Request.new("http://api.hostip.info/get_json.php?ip=#{request.remote_ip}").perform.body.as_json)["country_code"]
@@ -86,9 +84,5 @@ class PostsController < ApplicationController
 
 		def post_params
 			params[:post].permit(:content)
-		end
-
-		def current_user?(user)
-			user == current_user
 		end
 end

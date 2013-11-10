@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
 	validates :username, :uniqueness => { :case_sensitive => false }
 	validates :username, :presence => true
+	validates :username, :length => 2..18
 
 	def events
 		main_events + secondary_events

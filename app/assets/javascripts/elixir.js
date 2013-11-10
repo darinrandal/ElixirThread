@@ -37,7 +37,7 @@ function documentReady()
 				type: "POST",
 				url: "/ratings",
 				data: { 
-					post_id: t.attr('pid'),
+					post_id: t.parent().attr('pid'),
 					rating_type: t.attr('rid'),
 					authenticity_token: token
 				}
@@ -106,7 +106,7 @@ function documentReady()
 	$('#user_avatar').change(avatarCheck);
 
 	$('#new_post').bind('ajax:success', function(evt, data, status, xhr) {
-		$('#reply_box').before(xhr.responseText);
+		$('.post-container').last().after(xhr.responseText);
 		$('.post-container').last().slideDown('slow', function() {
 			$("html, body").animate({ scrollTop: $('.forum_post').last().offset().top }, 1000);
 		});
@@ -114,7 +114,7 @@ function documentReady()
 		documentReady();
 	}).bind('ajax:before', function() {
 		$('.chill-box').remove();
-	});
+	}).bind('ajax:error', ajaxFail);
 
 	$('.del-ajax').click(function(e) {
 		e.preventDefault();

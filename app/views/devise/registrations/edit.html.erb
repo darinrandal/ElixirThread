@@ -38,7 +38,19 @@
 			<div id="textarea_wrap_0" class="textarea_wrap"><%= f.text_area :description, :cols => 50, :rows => 8 %></div>
 		</td>
 	</tr>
-
+	<tr class="colhead_dark">
+		<td colspan="2">
+			<strong>Permissions</strong>
+		</td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Admin?</strong></td>
+		<td><%= f.check_box :admin, :class => 'p_field' %></td>
+	</tr>
+	<tr>
+		<td class="label"><strong>Moderator?</strong></td>
+		<td><%= f.check_box :moderator, :class => 'p_field' %></td>
+	</tr>
 	<tr class="colhead_dark">
 		<td colspan="2">
 			<strong>Change password</strong>
