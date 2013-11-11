@@ -1,6 +1,8 @@
 <div id="footer">
-	<p>Elixir Thread coded in ruby on rails 4 by <a href="http://erppy.co">this guy</a></p>
+	<p>Elixir Thread developed in Ruby on Rails 4.0.1 with Devise, CanCan, and Paperclip.</p>
+	<% last_commit = `git --git-dir=#{Rails.root}/.git log --pretty=format:'%h' -n 1` %>
+	<% last_commit_time = `git --git-dir=#{Rails.root}/.git log --pretty=format:'%ct' -n 1` %>
 	<p>
-		<strong>Rev:</strong> 22
+		Last Commit: <strong><%= last_commit %></strong> at <strong><%= Time.at(last_commit_time.to_i).strftime("%m/%d/%Y %I:%M %p") %></strong>
 	</p>
 </div>
