@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 		#:url => "/system/:hash.:extension",
     	#:hash_secret => "ElixirThread"
 	validates_with AttachmentContentTypeValidator, :content_type => /image/, :attributes => :avatar, :message => "must be an image"
-	validates_with AttachmentSizeValidator, :less_than_or_equal_to => 60.kilobytes, :attributes => :avatar, :message => "must be less than or equal to 60 kilobytes"
+	validates_with AttachmentSizeValidator, :less_than_or_equal_to => 5.megabytes, :attributes => :avatar, :message => "must be less than or equal to 60 kilobytes"
 
 	validates :username, :uniqueness => { :case_sensitive => false }
 	validates :username, :presence => true

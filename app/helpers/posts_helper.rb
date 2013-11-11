@@ -4,25 +4,13 @@ module PostsHelper
 	end
 
 	def format_os(os)
-		os = "OS X" unless !os.include?("OS X")
+		os = "OS X" if os.include?("OS X")
 		image_tag "#{root_path}assets/os/#{os.delete(' ').downcase}.png", :title => os, :alt => os
 	end
 
 	def format_browser(b)
 		image_tag "#{root_path}assets/browser/#{b.delete(' ').downcase}.png", :title => b, :alt => b
 	end
-
-	def format_post_edit(post)
-		link_to 'Edit', edit_post_path(post), :class => "edit_post brackets" if can? :edit, post
-    end
-
-    def format_post_delete(post)
-    	link_to 'Delete', post, :class => "brackets del-ajax" if can? :delete, post
-    end
-
-    def format_post_quote(post)
-    	link_to 'Quote', post, :class => "brackets" if can? :create, post
-    end
 
     def rating_by_name(id)
 		ratings = ['', 'Moustache', 'Smarked', 'Agree', 'Disagree', 'Funny', 'Winner', 'Zing', 'Informative', 'Friendly', 'Useful', 'Programming King', 'Optimistic', 'Artistic', 'Late', 'Dumb']

@@ -18,7 +18,7 @@
       <div class="centered" id="bits<%= post.id %>">
         <%= image_tag post.user.avatar.url, :class => "post_avatar" %><br/>
         <%= post.user.created_at.to_s(:month_and_year) %><br/>
-        <%= post.user.post_count %> Posts
+        <%= pluralize(post.user.post_count, 'Post') %>
       </div>
     </td>
     <td class="body">
@@ -57,9 +57,9 @@
           <img alt="Late" class="rate_post" rid="14" src="/assets/ratings/late.png" title="Late" />
           <img alt="Dumb" class="rate_post" rid="15" src="/assets/ratings/dumb.png" title="Dumb" />
         <% end %>
-        <%= format_post_edit(post) %>
-        <%= format_post_delete(post) %>
-        <%= format_post_quote(post) %>
+        <%= link_to 'Edit', edit_post_path(post), :class => "edit_post brackets" if can? :edit, post %>
+        <%= link_to 'Delete', post, :class => "brackets del-ajax" if can? :delete, post %>
+        <%= link_to 'Quote', post, :class => "brackets" if can? :create, post %>
       </div>
     </td>
   </tr>

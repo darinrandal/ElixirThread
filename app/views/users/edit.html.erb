@@ -1,7 +1,17 @@
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "edit_form" }) do |f| %>
-<%= devise_error_messages! %>
+<%= form_for(@user, :html => { :class => "edit_form" }) do |f| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
+<% end %>
 <div class="header">
-	<h2>User Preferences</h2>
+	<h2>Profile Edit for <%= @user.username %></h2>
 </div>
 <table cellpadding="6" cellspacing="1" border="0" width="100%" class="layout border user_options">
 	<tr class="colhead_dark">
@@ -57,27 +67,12 @@
 		</td>
 	</tr>
 	<tr>
-		<td></td>
-		<td><p class="min-padding">Do not fill this section out if you don't wish to change your password</p></td>
-	</tr>
-	<tr>
 		<td class="label"><strong>New password</strong></td>
 		<td><%= f.password_field :password, :autocomplete => "off", :size => 40, :class => 'p_field' %></td>
 	</tr>
 	<tr>
 		<td class="label"><strong>Re-type new password</strong></td>
 		<td><%= f.password_field :password_confirmation, :size => 40, :class => 'p_field' %></td>
-	</tr>
-
-	<tr class="colhead_dark">
-		<td colspan="2">
-			<strong>Verification</strong>
-		</td>
-	</tr>
-	<tr>
-		<td class="label"><strong>Current password</strong></td>
-		<td><%= f.password_field :current_password, :size => 40 %>
-		<p id="user_current_password_label" class="min_padding">Enter your current password to update your preferences</p></td>
 	</tr>
 	<tr>
 		<td colspan="2" class="right"><input type="submit" value="Save Profile" /></td>
