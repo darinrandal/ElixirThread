@@ -16,6 +16,7 @@
 //= require_tree .
 
 $(document).ready(documentReady);
-document.addEventListener("page:load", documentReady);
-document.addEventListener("page:fetch", function() { $('#circleG').show(); });
-document.addEventListener("page:receive", function() { $('#circleG').hide(); });
+$(document).on("page:load", documentReady);
+$(document).on("page:fetch", function() { NProgress.start(); });
+$(document).on("page:change", function() { NProgress.done(); });
+$(document).on("page:restore", function() { NProgress.remove(); })
