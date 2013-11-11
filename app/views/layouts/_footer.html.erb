@@ -1,8 +1,10 @@
 <div id="footer">
-	<p>Elixir Thread developed in Ruby on Rails 4.0.1 with Devise, CanCan, and Paperclip.</p>
+	<p>ElixirThread developed in Ruby on Rails 4.0.1 with Devise, CanCan, and Paperclip.</p>
 	<% last_commit = `git --git-dir=#{Rails.root}/.git log --pretty=format:'%h' -n 1` %>
 	<% last_commit_time = `git --git-dir=#{Rails.root}/.git log --pretty=format:'%ct' -n 1` %>
+	<% last_commit_link = "https://github.com/TehWhale/ElixirThread/commit/" + `git rev-parse origin/master` %>
 	<p>
-		Last Commit: <strong><%= last_commit %></strong> at <strong><%= Time.at(last_commit_time.to_i).strftime("%m/%d/%Y %I:%M %p") %></strong>
+		Last Commit: <strong><%= link_to last_commit, last_commit_link, target: "_blank" %></strong> at 
+		<strong><%= Time.at(last_commit_time.to_i).strftime("%m/%d/%Y %I:%M %p") %></strong>
 	</p>
 </div>
