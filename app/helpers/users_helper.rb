@@ -14,4 +14,14 @@ module UsersHelper
   def current_user?(user)
     user == current_user
   end
+
+  def user_page?(params)
+    (
+      params[:controller] == 'users' && 
+    (
+      (params[:action] == 'show' || params[:action] == 'edit') && 
+      params[:id] == current_user.id.to_s
+    )) || 
+    (params[:controller] == 'registrations' && params[:action] == 'edit')
+  end
 end

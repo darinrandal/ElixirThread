@@ -184,9 +184,3 @@ function unbindOld()
 	$('#new_post').off();
 	$('.del-ajax').off();
 }
-
-
-
-
-
-
